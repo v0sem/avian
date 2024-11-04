@@ -6,12 +6,24 @@
 
 (defparameter *dest-location* "~/media/photos/birds/")
 
+(defun bird-count (locale bird)
+  (length (loop for path in (directory (str:concat *dest-location* "*.jpg"))
+                when (str:contains? (str:concat locale "_" bird) (namestring path))
+                  collect path
+                )))
+
+(defun save-file (locale bird og-photo)
+  (let ((bcount (bird-count locale bird)))
+    (format t "Moving ~a to ~a" og-photo *dest-location*)
+    (rename-file
+     og-photo
+     (str:concat *dest-location* locale "_" bird "_" (format nil "~2,'0D" bcount) "." (pathname-type og-photo)))))
+
 (defun main (command)
   (let ((photo (clingon:getopt command :photo))
         (bird (str:join "_" (str:split " " (clingon:getopt command :bird))))
         (locale (clingon:getopt command :locale)))
-    (format t "[+] Moving ~a to ~a~a_~a.jpg" photo *dest-location* locale bird)
-    ))
+    (save-file locale bird photo)))
 
 (defun cli/options ()
   (list
