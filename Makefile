@@ -9,3 +9,4 @@ build:
 		--eval '(push :deploy-console *features*)' \
 		--eval '(asdf:make :$(NAME))' \
 		--eval '(quit)'
+	sudo cp bin/avian /usr/bin

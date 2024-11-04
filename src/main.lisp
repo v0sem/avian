@@ -13,7 +13,7 @@
 
 (defun save-file (locale bird og-photo)
   (let ((bcount (bird-count locale bird)))
-    (format t "Moving ~a to ~a" og-photo *dest-location*)
+    (format t "Moving ~a to ~a " og-photo *dest-location*)
     (rename-file
      og-photo
      (str:concat *dest-location* locale "_" bird "_" (format nil "~2,'0D" bcount) "." (pathname-type og-photo)))))
