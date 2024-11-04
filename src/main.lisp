@@ -1,6 +1,5 @@
 (defpackage avian
-  (:use :cl)
-  (:local-nicknames (:a :alexandria)))
+  (:use :cl))
 
 (in-package :avian)
 
